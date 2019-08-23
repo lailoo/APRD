@@ -1,30 +1,67 @@
-# APRD
+# 古诗词可读性数据集（APRD）
 
 ## 数据集简介
 
 向读者推荐阅读难度合适的古诗词有助于提升读者的诗词鉴赏能力。现阶段，围绕古诗词可读性自动化分析的相关研究的突出局限之一是缺乏大规模高质量的数据集。针对该问题，本文研究面向古诗词可读性自动化分析的数据集构建。我们对外开放包含1915篇古诗词的标注阅读理解难度的数据集①。我们首先将数据集划分成易中难三级，构建数据集APRD；然后进一步细化标注构建六级分类数据集APRD+。我们抽取教材中的诗词组成标准集，以年级为标准难度级别，计算标准集与APRD、APRD+之间的Spearman相关性分别为0.786与0.804，表明该数据集标记结果与标准集具有较高一致性。本文提取了字频、注释数等古诗词特征，采用SVM、随机森林等算法进行了初步古诗词阅读理解难易度分类测试。本文提出的古诗词可读性数据集与实验结果可作为后续研究的测试基准。
 
-## 字段描述
 
-* content : 诗词文本
-* idx_list :序号
-* label_list：难度级别
-* paragrah_len：诗词长度
-* sent_num：诗词中的句子数
-* shangxi_len：赏析文本的长度
-* title：诗词名称
-* upvotes_num:点赞数
-* url_list： 诗词原文链接
-* yiwen_len：译文长度
-* zhushi_num：注释数目
+
+## 文件说明
+
+### 1. raw_poem_text.csv
+
+该文件包含未经任何预处理的诗词源文本及其原文链接。
+
+#### 字段解释：
+
+* idx：诗词唯一标志符
+* poem_text：诗词源文本内容
+* url：获取诗词原文的古诗文网站链接
+
+### 2. unigram_poem_text.csv
+
+该文件与 `raw_poem_text.csv`类似，仅对文本进行分字预处理。
+
+### 3. APRD.csv
+
+该文件中提供了人工标记的诗词难度级别，共划分成`易中难`三级，用数据`1/2/3`表示。
+
+#### 字段解释：
+
+* idx：诗词唯一标志符
+* difficulty_level：难度级别
+* url：古诗文网链接
+
+### 4. APRD+.csv
+
+类似于APRD.csv文件，但难度划分级别为六级。
+
+### 5. standard_set.csv
+
+该文件提供了部分出现在教材中诗词的所属年级，我们将其作为该首诗词的实际难度系数，用于与我们提供的诗词难度标记结果做一致性比较。
+
+#### 字段解释：
+
+* No：诗词序号
+
+* grade：诗词所在的年级
+
+* idx：诗词在`raw_poem_text.csv`文件中的标志符
+
+* title：诗词标题
+
+* url：古诗文网连接
+
+  
+
 
 ## 一致性对比
 
 ARPD数据集与专家标注的教材的一致性对比结果：
 
-![](C:\Users\coyote\Desktop\git_repo\APRD\picture\APRD与标准集难易度一致性.png)
+![Aaron](https://raw.githubusercontent.com/lailoo/APRD/master/picture/APRD%E4%B8%8E%E6%A0%87%E5%87%86%E9%9B%86%E9%9A%BE%E6%98%93%E5%BA%A6%E4%B8%80%E8%87%B4%E6%80%A7.png)
 
 类似的：APRD+与专家标注结果的一致性比较：
 
-![](C:\Users\coyote\Desktop\git_repo\APRD\picture\ARPD+与标准集难易度一致性对比结果.png)
+![](https://raw.githubusercontent.com/lailoo/APRD/master/picture/ARPD%2B%E4%B8%8E%E6%A0%87%E5%87%86%E9%9B%86%E9%9A%BE%E6%98%93%E5%BA%A6%E4%B8%80%E8%87%B4%E6%80%A7%E5%AF%B9%E6%AF%94%E7%BB%93%E6%9E%9C.png)
 
